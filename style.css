@@ -1,0 +1,105 @@
+@font-face {
+  font-family: "Gotham_Pro";
+  src: url("./font/gothampro_light.ttf");
+}
+
+body {
+  background-color: #353638;
+}
+
+#app {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.timer {
+  position: relative;
+  background-color: #696969;
+  text-align: center;
+  width: 225px;
+  height: 120px;
+  margin: 0 50px 50px 0;
+  color: #fff;
+}
+h2 {
+  margin: 22px 0 18px 0;
+  font-weight: bold;
+  font-size: 24px;
+  color: #9e9e9e;
+  font-family: "Gotham_Pro";
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 21px;
+}
+
+button {
+  background: transparent;
+  border: none;
+}
+.timer__button {
+  width: 17px;
+  height: 20px;
+  padding: 20px 24px 0 24px;
+}
+.add_stopwatch {
+  width: 225px;
+  height: 120px;
+  background-color: #696969;
+  margin: 0 50px 50px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Gotham Pro", sans-serif;
+  font-size: 24px;
+}
+.line {
+  border: none;
+  border-top: 1px solid #9e9e9e;
+}
+
+@media only screen and (max-width: 768px) {
+  #app {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: center;
+  max-width: 600px;
+  padding-left: 80px;
+  
+  }
+
+  .timer,
+  .add_stopwatch {
+    width: 225px;
+    height: 120px;
+    
+  }
+
+  .add_stopwatch {
+    margin-right: 0;
+  }
+}
+
+
+@media only screen and (max-width:320px) {
+  #app {
+    max-width: 300px;
+    padding-left: 10px;
+    justify-content: center;
+  }
+
+  .timer,
+  .add_stopwatch {
+    width: 225px;
+height: 120px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+ 

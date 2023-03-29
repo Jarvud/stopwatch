@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3.2.16/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <title>Секундомеры</title>
+  </head>
+  <body>
+    <div id="app">
+      <div
+        v-for="(timer, index) in timers"
+        :key="index"
+        class="timer"
+        :style="{ backgroundColor: color }">
+        <h2 class="timer__display">{{formattedTime(timer.time)}}</h2>
+
+        <div class="timer__buttons">
+          <div class="line"></div>
+          <div class="bt_st_pause">
+            <button
+              class="timer__button"
+              @click="toggleTimer(index); changeColor()">
+              <img v-if="timer.running" src="./icons/pause.svg" alt="Пауза" />
+              <img v-else src="./icons/start.svg" alt="Запуск" />
+            </button>
+            <button class="timer__button" @click="resetTimer(index)">
+              <img src="./icons/reset.svg" alt="Сбросить" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div @click="addTimer" class="add_stopwatch">
+        <button class="bt">
+          <img src="./icons/plus.svg" alt="Добавить секундомер" />
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            timers: [{ time: 0, running: false }],
+          };
+        },
+        methods: {
+          toggleTimer(index) {
+            const timer = this.timers[index];
+            if (timer.running) {
+              clearInterval(timer.intervalId);
+              timer.running = false;
+            } else {
+              timer.intervalId = setInterval(() => {
+                timer.time++;
+              }, 1000);
+              timer.running = true;
+            }
+          },
+          resetTimer(index) {
+            const timer = this.timers[index];
+            clearInterval(timer.intervalId);
+            timer.time = 0;
+            timer.running = false;
+          },
+          addTimer() {
+            this.timers.push({ time: 0, running: false });
+          },
+          formattedTime(time) {
+            let seconds = (time % 60).toString();
+            let minutes = Math.floor((time % 3600) / 60)
+              .toString()
+              .padStart(1, "0");
+            let hours = Math.floor(time / 3600)
+              .toString()
+              .padStart(1, "0");
+            let formattedTime = "";
+            if (minutes == "0") {
+              formattedTime = `${seconds}`;
+            } else {
+              if (hours === "0") {
+                formattedTime = `${Number(minutes)}:${seconds.padStart(
+                  2,
+                  "0"
+                )}`;
+              } else {
+                formattedTime = `${hours}:${minutes.padStart(
+                  2,
+                  "0"
+                )}:${seconds.padStart(2, "0")}`;
+              }
+            }
+            return formattedTime;
+          },
+        },
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>
